@@ -47,7 +47,7 @@ def solve():
                         if lr < 0 or lr >= row or lc < 0 or lc >= col:
                             continue
 
-                        if grid[nr][nc] == 'M' and grid[br][bc] == 'S' and grid[sr][sc] == 'M' and grid[lr][lc] == 'S':
+                        if grid[nr][nc] == 'M' and grid[br][bc] == 'S' and grid[sr][sc] == 'S' and grid[lr][lc] == 'M':
                             total += 1
         print(total)
 
