@@ -2,6 +2,7 @@ def solve():
     with open("t.txt") as f:
         lines = f.read().splitlines()
 
+    print(lines)
     rules = []
     cnt = 0
     cnt2 = 0
@@ -16,6 +17,8 @@ def solve():
             rules.append(list(map(int, line.split("|"))))
         else:
             updates.append(list(map(int, line.split(","))))
+    print(rules)
+    print(updates)
 
 
     def is_update_valid(update):
@@ -37,12 +40,11 @@ def solve():
     cnt = 0
     cnt2 = 0
 
-    for idx, update in enumerate(updates):
+    for _, update in enumerate(updates):
         if is_update_valid(update): 
             cnt += update[len(update) // 2]  
         else: 
             cnt2 += update[len(update) // 2]  
-            print("Index for corrected update:", idx, "Corrected update:", update)
 
     print( cnt)
     print( cnt2)
