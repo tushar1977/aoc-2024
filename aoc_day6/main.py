@@ -5,60 +5,33 @@ map = []
 for data in raw_data:
     map.append(data.strip())
 
-print(map[0][-1] == "\n")
-print(map)
-
-directions = [[0, -1], [1, 0], [0, 1], [-1, 0]]
-curr_dir = 0
-
 pos = []
-obs_2 = {}
 obs_dict = {}
-
+print(map)
 for y, row in enumerate(map):
     for x, obj in enumerate(row):
+        if obj == "#":
+            obs_dict[f"{x},{y}"] = True
         if obj == "^":
             pos = [x, y]
-        if obj == "#":
-            obs_dict[f"{x};{y}"] = True
-        else:
-            obs_2[f"{x};{y}"] = True
+
+print(map[1][1])
+directions = [[0, -1], [1, 0], [0, 1], [-1, 0]]
+curr_dir = 0
 visited = set()
-cnt = 0
 
+while 0 < pos[0] < len(map[0]) and 0 < pos[1] < len(map):
+    direction = directions[curr_dir]
 
-def detect_loop(x, y, obs_dict, pos, curr_dir):
-    obs_dict[f"{x};{y}"] = True
+    print("current dir", direction)
+    new_pos = [pos[0] + direction[0], pos[1] + direction[1]]
+    print("new pos", new_pos)
 
-    turns_taken = {}
-    turns_taken[f"{pos[0]};{pos[1]};{curr_dir}"] = True
+    if obs_dict.get(f"{new_pos[0]},{new_pos[1]}"):
+        curr_dir += 1
+        curr_dir %= len(directions)
+    else:
+        visited.add(f"{new_pos[0]},{new_pos[1]}")
+        pos = new_pos
 
-    while 0 < pos[0] < len(map[0]) and 0 < pos[1] < len(map):
-        direction = directions[curr_dir]
-        next_pos = [pos[0] + direction[0], pos[1] + direction[1]]
-
-        if obs_dict.get(f"{next_pos[0]};{next_pos[1]}"):
-            curr_dir += 1
-            curr_dir %= len(directions)
-
-            if turns_taken.get(f"{pos[0]};{pos[1]};{curr_dir}"):
-                return True
-            else:
-                turns_taken[f"{pos[0]};{pos[1]};{curr_dir}"] = True
-        else:
-            pos = next_pos
-    return False
-
-
-loops = 0
-for x in range(len(map[0])):
-    for y in range(len(map)):
-        if not obs_dict.get(f"{x};{y}"):
-            if detect_loop(x, y, obs_dict.copy(), pos, curr_dir):
-                print(x, y)
-                loops += 1
-
-
-print(detect_loop(0, 0, obs_dict, pos, curr_dir))
-
-print(loops)
+print(len(visited))
