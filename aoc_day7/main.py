@@ -12,6 +12,7 @@ for line in raw_data:
 def solve2(k, v):
     for combo in product("*+|", repeat=len(v) - 1):
         ans = v[0]
+        print(combo)
         for i in range(1, len(v)):
             if combo[i - 1] == "+":
                 ans += v[i]
@@ -21,7 +22,6 @@ def solve2(k, v):
                 ans *= v[i]
 
         if ans == k:
-            print(f"found{k}\n, {v}\n, {combo}")
             return True
     return False
 
