@@ -3,45 +3,30 @@ with open("t.txt", "r") as f:
 
 stones = [int(num) for num in raw.split() if num.isdigit()]
 
-new_l = []
 
-i = 0
+cache = {}
 
 
-def process_stone(stone, memo):
-    if stone in memo:
-        return memo[stone]
+def part_2(x, n):
+    if n == 0:
+        return 1
 
-    if stone == 0:
-        result = [1]
-    elif len(str(stone)) % 2 == 0:
-        digits = str(stone)
-        mid = len(digits) // 2
-        first_half = digits[:mid]
-        second_half = digits[mid:]
-
-        result = [int(first_half)]
-        if set(second_half) == {"0"}:
-            result.append(0)
+    if (x, n) not in cache:
+        if x == 0:
+            result = part_2(1, n - 1)
+        elif len(str(x)) % 2 == 0:
+            x = str(x)
+            result = 0
+            result += part_2(int(x[: len(x) // 2]), n - 1)
+            result += part_2(int(x[len(x) // 2 :]), n - 1)
         else:
-            result2 = second_half.lstrip("0")
-            result.append(int(result2))
-    else:
-        result = [stone * 2024]
-
-    memo[stone] = result
-    return result
+            result = part_2(2024 * x, n - 1)
+        cache[(x, n)] = result
+    return cache[(x, n)]
 
 
-memo = {}
-i = 0
-while i < 25:
-    new_l = []
-    for stone in stones:
-        new_l.extend(process_stone(stone, memo))
-    stones = new_l
-    print(i)
-    i += 1
-
-
-print(len(new_l))
+res = 0
+for x in stones:
+    # replace with 25
+    res += part_2(x, 75)
+print(res)
