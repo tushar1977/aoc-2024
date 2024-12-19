@@ -8,7 +8,7 @@ def count_ways(display, towels, memo):
     if display in memo:
         return memo[display]
 
-    if not display:
+    if display == "":
         return 1
 
     ways = 0
