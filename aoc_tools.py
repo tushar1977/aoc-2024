@@ -17,8 +17,6 @@ def get_by_regix():
 
 directions = [(1, 0), (0, 1), (0, -1), (-1, 0)]
 
-n = 9
-
 
 def in_grid(i, j):
     return (0 <= i < n) and (0 <= j < n)
