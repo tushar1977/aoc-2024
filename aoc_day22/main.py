@@ -22,6 +22,7 @@ for line in open("t.txt", "r"):
         seq = (b - a, c - b, d - c, e - d)
         if seq in seen:
             continue
+        seen.add(seq)
         if seq not in seq_total:
             seq_total[seq] = 0
         seq_total[seq] += e

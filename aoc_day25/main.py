@@ -4,10 +4,8 @@ keys = []
 
 with open("t.txt", "r") as f:
     parts = f.read().strip()
-
     for i in parts.split("\n\n"):
         grid2 = [j for j in i.split("\n")]
-        print(grid2)
         isl = False
 
         if grid2[0] == "#####":

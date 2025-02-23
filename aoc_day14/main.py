@@ -41,7 +41,6 @@ def print_grid(grid):
 
 def simulate_robots(robots, t, width, height, grid):
     new_positions = []
-    # Clear the grid
     for r in range(height):
         for c in range(width):
             grid[r][c] = "."
